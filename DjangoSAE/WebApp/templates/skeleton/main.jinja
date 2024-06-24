@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block "title" %}Ludothèque{% endblock %}</title>
+        {% load static %}
+        <link href="static/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'all' %}">Toutes les données</a></li>
+                <li><a href="{% url 'filter' %}">Sélectionner des données</a></li>
+                <li><a href="{% url 'capteur.all' %}">Capteurs</a></li>
+            </ul>
+        </nav>
+
+        {% block "content" %}
+            <p>Aucun contenu</p>
+        {% endblock %}
+    </body>
+</html>

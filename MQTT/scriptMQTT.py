@@ -22,11 +22,8 @@ INSERT_DONNEES = "INSERT INTO Donnees (capteur_id, date, heure, temperature) VAL
 try:
     db = mysql.connector.connect(**db_config)
 except Exception as exception:
+    db = None
     print(f"Impossible de se connecter à la base de données : {exception}")
-
-class Data(typing.TypedDict):
-    capteur: Capteur
-    donnee: Donnee
 
 
 def publier_vers_db(donnees: list[dict]):
@@ -44,8 +41,10 @@ def on_connect(client: Client, userdata: typing.Any, flags: ConnectFlags, reason
         print(f"Échec de la connexion, code de retour {rc}")
 
 def on_message(client: Client, userdata: typing.Any, msg: MQTTMessage):
+    global db
+    global temp_save
     payload = msg.payload.decode('utf-8')
-    print(f"=== {msg.topic} ===\n{payload}")
+    print(f"========== {msg.topic} =============\n{payload}")
 
     lieu = msg.topic.split("/")[-1]
     print(lieu)
@@ -57,23 +56,25 @@ def on_message(client: Client, userdata: typing.Any, msg: MQTTMessage):
 
 
     # Pour la date
-    true_info["date"] = datetime.strptime(date_str, "%d/%m/%Y").date()
+    true_info["date"] = datetime.strptime(true_info["date"], "%d/%m/%Y").date()
 
     # Pour l'heure
-    true_info["time"] = datetime.strptime(time_str, "%H:%M:%S").time()
+    true_info["time"] = datetime.strptime(true_info["time"], "%H:%M:%S").time()
 
 
-    if id not in WHITELIST_CAPTEURS:
+    if true_info["id"] not in WHITELIST_CAPTEURS:
+        print("Ignoré.")
         return
 
-    if db.is_connected():
+    if db and db.is_connected():
         publier_vers_db(temp_save)
         temp_save = []
     else:
         try:
-            db.connect()
+            db = mysql.connector.connect(**db_config)
         except Exception as exception:
             print(f"Impossible de se connecter à la base de données : {exception}")
+        print(f"Sauvegardé dans mémoire temporaire : Entrée {len(temp_save)}")
         temp_save.append(true_info)
 
 client = Client(CallbackAPIVersion.VERSION2)

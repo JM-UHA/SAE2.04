@@ -1,0 +1,17 @@
+{% extends "skeleton/main.jinja" %}
+
+{% block "title" %}Tout les capteurs{% endblock %}
+
+{% block "content" %}
+<h1>Tout les capteurs</h1>
+
+{% for capteur in capteurs %}
+    {% if capteur.nom %}
+        <h5>{{ capteur.pk }} - {{ capteur.nom }}</h5>
+    {% else %}
+        <h5>{{ capteur.pk }}</h5>
+    {% endif %}
+    <a href="{% url 'capteur.view' id=capteur.pk %}"><button>Voir</button></a>
+    <a href="{% url 'capteur.edit' id=capteur.pk %}"><button>Modifier</button></a>
+{% endfor %}
+{% endblock %}

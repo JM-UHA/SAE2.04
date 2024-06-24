@@ -12,6 +12,7 @@ dependencies = [
     "paho-mqtt>=2.1.0",
     "mysql-connector-python>=8.4.0",
     "mysqlclient>=2.2.4",
+    "python-dotenv>=1.0.1",
 ]
 requires-python = ">=3.10"
 readme = "README.md"

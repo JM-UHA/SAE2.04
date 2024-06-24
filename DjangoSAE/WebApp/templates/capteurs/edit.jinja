@@ -1,0 +1,12 @@
+{% extends "skeleton/main.jinja" %}
+
+{% block "title" %}Editer le capteur{% endblock %}
+
+{% block "content" %}
+<h1>Editer capteur {{ capteur.pk }}</h1>
+<form method="POST" action="{% url 'capteur.edit' id=capteur.pk %}">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Envoyer" />
+</form>
+{% endblock %}

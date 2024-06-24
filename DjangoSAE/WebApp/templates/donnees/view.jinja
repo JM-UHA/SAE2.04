@@ -1,0 +1,42 @@
+{% extends "skeleton/main.jinja" %}
+
+{% block "title" %}Toutes les données{% endblock %}
+
+{% block "content" %}
+<h1>Toutes les données</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>ID Capteur</th>
+        <th>Nom Capteur</th>
+        <th>Pièce</th>
+        <th>Lieu</th>
+        <th>Date</th>
+        <th>Heure</th>
+        <th>Température</th>
+    </tr>
+    {% for entree in donnees %}
+    <tr>
+        <td>{{ entree.id }}</td>
+
+        <td><a href="{% url 'capteur.view' id=entree.capteur.pk %}">{{ entree.capteur_id }}</a></td>
+
+        {% if entree.capteur.nom %}
+            <td>{{ entree.capteur.nom }}</td>
+        {% else %}
+            <td class="missing">N/A</td>
+        {% endif %}
+
+        <td>{{ entree.capteur.piece }}</td>
+
+        <td>{{ entree.capteur.lieu }}</td>
+
+        <td>{{ entree.date }}</td>
+        <td>{{ entree.heure }}</td>
+        <td>{{ entree.temperature }}°C</td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
