@@ -8,8 +8,7 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>ID Capteur</th>
-        <th>Nom Capteur</th>
+        <th>Capteur</th>
         <th>Pièce</th>
         <th>Lieu</th>
         <th>Date</th>
@@ -20,13 +19,7 @@
     <tr>
         <td>{{ entree.id }}</td>
 
-        <td><a href="{% url 'capteur.view' id=entree.capteur.pk %}">{{ entree.capteur_id }}</a></td>
-
-        {% if entree.capteur.nom %}
-            <td>{{ entree.capteur.nom }}</td>
-        {% else %}
-            <td class="missing">N/A</td>
-        {% endif %}
+        <td><a href="{% url 'capteur.view' id=entree.capteur.pk %}">{{ entree.capteur }}</a></td>
 
         <td>{{ entree.capteur.piece }}</td>
 
@@ -35,8 +28,14 @@
         <td>{{ entree.date }}</td>
         <td>{{ entree.heure }}</td>
         <td>{{ entree.temperature }}°C</td>
-
     </tr>
     {% endfor %}
 </table>
+
+<b>Total : {{ donnees|length }}</b>
+
+<form method="get" action="{% url 'donnee.export' %}">
+    <input type="hidden" name="ids" value="{{ donnees_ids|join:"," }}">
+    <button type="submit">Exporter CSV</button>
+</form>
 {% endblock %}

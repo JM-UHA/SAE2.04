@@ -7,9 +7,9 @@
 
 {% for capteur in capteurs %}
     {% if capteur.nom %}
-        <h5>{{ capteur.pk }} - {{ capteur.nom }}</h5>
+        <h3>{{ capteur.pk }} - {{ capteur.nom }}</h3>
     {% else %}
-        <h5>{{ capteur.pk }}</h5>
+        <h3>{{ capteur.pk }}</h3>
     {% endif %}
     <a href="{% url 'capteur.view' id=capteur.pk %}"><button>Voir</button></a>
     <a href="{% url 'capteur.edit' id=capteur.pk %}"><button>Modifier</button></a>

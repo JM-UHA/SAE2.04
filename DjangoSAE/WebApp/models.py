@@ -1,5 +1,4 @@
 from django.db import models
-from enum import Enum
 
 # Create your models here.
 
@@ -10,6 +9,11 @@ class Capteur(models.Model):
     piece = models.CharField(max_length=50)
     lieu = models.CharField(max_length=50)
     emplacement = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self) -> str:
+        if self.nom:
+            return self.nom
+        return self.capteur_id
 
     class Meta:
         managed = False

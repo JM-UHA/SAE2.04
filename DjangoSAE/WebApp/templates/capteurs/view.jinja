@@ -5,5 +5,34 @@
 {% block "content" %}
 <h1>Capteur {{ capteur.pk }}</h1>
 
+<table>
+    <tr>
+        <th>ID interne</th>
+        <th>ID capteur</th>
+        <th>Nom capteur</th>
+        <th>Pièce</th>
+        <th>Lieu</th>
+        <th>Emplacement</th>
+    </tr>
+    <tr>
+        <td>{{ capteur.id }}</td>
 
+        <td>{{ capteur.capteur_id }}</td>
+
+        {% if capteur.nom %}
+            <td>{{ capteur.nom }}</td>
+        {% else %}
+            <td class="missing">N/A</td>
+        {% endif %}
+
+        <td>{{ capteur.piece }}</td>
+        <td>{{ capteur.lieu }}</td>
+        {% if capteur.emplacement %}
+            <td>{{ capteur.emplacement }}</td>
+        {% else %}
+            <td class="missing">N/A</td>
+        {% endif %}
+
+    </tr>
+</table>
 {% endblock %}

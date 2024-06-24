@@ -6,14 +6,30 @@ from . import models
 
 class DonneeForm(forms.Form):
     capteur_id = forms.ModelChoiceField(
-        queryset=Capteur.objects.all(), 
+        queryset=models.Capteur.objects.all(), 
         required=False, 
         label="Capteur"
     )
-    date_min = forms.DateField(required=False, label="Avant date")
-    date_max = forms.DateField(required=False, label="Après date")
-    heure_min = forms.TimeField(required=False, label="Avant heure")
-    heure_max = forms.TimeField(required=False, label="Après heure")
+    date_min = forms.DateField(
+        required=False, 
+        label="Date min",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'datepicker', 'lang': 'fr-FR'})
+    )
+    date_max = forms.DateField(
+        required=False, 
+        label="Date max",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'datepicker', 'lang': 'fr-FR'})
+    )
+    heure_min = forms.TimeField(
+        required=False, 
+        label="Heure min",
+        widget=forms.TimeInput(attrs={'type': 'time', 'class': 'timepicker', 'lang': 'fr-FR'})
+    )
+    heure_max = forms.TimeField(
+        required=False, 
+        label="Heure max",
+        widget=forms.TimeInput(attrs={'type': 'time', 'class': 'timepicker', 'lang': 'fr-FR'})
+    )
     temperature_min = forms.DecimalField(max_digits=5, decimal_places=2, required=False, label="Température minimum")
     temperature_max = forms.DecimalField(max_digits=5, decimal_places=2, required=False, label="Température maximum")
 

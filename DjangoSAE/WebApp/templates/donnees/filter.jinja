@@ -1,0 +1,12 @@
+{% extends "skeleton/main.jinja" %}
+
+{% block "title" %}Toutes les données{% endblock %}
+
+{% block "content" %}
+<h1>Filtrer les données</h1>
+<form method="POST" action="{% url 'donnee.filter' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Filtrer</button>
+</form>
+{% endblock %}

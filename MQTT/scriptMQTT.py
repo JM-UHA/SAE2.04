@@ -1,19 +1,23 @@
 # Code de récupération des données MQTT
 
-from paho.mqtt.client import MQTTMessage, CallbackAPIVersion, Client, ConnectFlags, ReasonCode, Properties
+from paho.mqtt.client import MQTTMessage, Client, ConnectFlags
+from paho.mqtt.enums import CallbackAPIVersion
+from paho.mqtt.reasoncodes import ReasonCode
+from paho.mqtt.properties import Properties
 import typing
 import mysql.connector
-from datetime import datetime, date, time
+from datetime import datetime
 
 
-temp_save = []
+temp_save: list[dict[str, typing.Any]] = []
 WHITELIST_CAPTEURS = ["B8A5F3569EFF", "A72E3F6B79BB"]
 
 db_config = {
-    "host": "db.grp11.local",
+    "host": "100.102.34.33",
     "user": "toto",
     "password": "toto",
-    "database": "dbcapteurs"
+    "database": "dbcapteurs",
+    "connection_timeout": 1
 }
 
 INSERT_CAPTEUR = "INSERT IGNORE INTO Capteurs (capteur_id, piece, lieu, emplacement) VALUES (%(id)s, %(piece)s, %(lieu)s, NULL)"
@@ -26,7 +30,9 @@ except Exception as exception:
     print(f"Impossible de se connecter à la base de données : {exception}")
 
 
-def publier_vers_db(donnees: list[dict]):
+def publier_vers_db(donnees: list[dict[typing.Any, typing.Any]]):
+    global db
+    db = typing.cast(mysql.connector.MySQLConnection, db)
     for donnee in donnees:
         cursor = db.cursor()
         cursor.execute(INSERT_CAPTEUR, donnee)
@@ -38,7 +44,7 @@ def on_connect(client: Client, userdata: typing.Any, flags: ConnectFlags, reason
         client.subscribe("IUT/Colmar2024/SAE2.04/Maison1")
         client.subscribe("IUT/Colmar2024/SAE2.04/Maison2")
     else:
-        print(f"Échec de la connexion, code de retour {rc}")
+        print(f"Échec de la connexion, code de retour {reason_code}")
 
 def on_message(client: Client, userdata: typing.Any, msg: MQTTMessage):
     global db
@@ -51,7 +57,7 @@ def on_message(client: Client, userdata: typing.Any, msg: MQTTMessage):
 
     infos: list[str] = payload.split(",")
     infos_cle_valeurs: list[list[str]] = [info.split("=") for info in infos]
-    true_info = {info[0].lower(): info[1] for info in infos_cle_valeurs}
+    true_info: dict[str, typing.Any] = {info[0].lower(): info[1] for info in infos_cle_valeurs}
     true_info["lieu"] = lieu
 
 
