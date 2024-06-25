@@ -7,36 +7,51 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Capteur',
+            name="Capteur",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nom', models.CharField(blank=True, max_length=50, null=True)),
-                ('capteur_id', models.CharField(max_length=12, unique=True)),
-                ('piece', models.CharField(max_length=50)),
-                ('lieu', models.CharField(max_length=50)),
-                ('emplacement', models.CharField(blank=True, max_length=50, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nom", models.CharField(blank=True, max_length=50, null=True)),
+                ("capteur_id", models.CharField(max_length=12, unique=True)),
+                ("piece", models.CharField(max_length=50)),
+                ("lieu", models.CharField(max_length=50)),
+                ("emplacement", models.CharField(blank=True, max_length=50, null=True)),
             ],
             options={
-                'db_table': 'capteurs',
-                'managed': False,
+                "db_table": "capteurs",
+                "managed": False,
             },
         ),
         migrations.CreateModel(
-            name='Donnee',
+            name="Donnee",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateField()),
-                ('heure', models.TimeField()),
-                ('temperature', models.DecimalField(decimal_places=2, max_digits=5)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date", models.DateField()),
+                ("heure", models.TimeField()),
+                ("temperature", models.DecimalField(decimal_places=2, max_digits=5)),
             ],
             options={
-                'db_table': 'capteurs',
-                'managed': False,
+                "db_table": "capteurs",
+                "managed": False,
             },
         ),
     ]

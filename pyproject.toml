@@ -13,6 +13,8 @@ dependencies = [
     "mysql-connector-python>=8.4.0",
     "mysqlclient>=2.2.4",
     "python-dotenv>=1.0.1",
+    "matplotlib>=3.9.0",
+    "pandas>=2.2.2",
 ]
 requires-python = ">=3.10"
 readme = "README.md"
@@ -21,3 +23,9 @@ license = {text = "None"}
 
 [tool.pdm]
 distribution = false
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=24.4.2",
+    "isort>=5.13.2",
+]

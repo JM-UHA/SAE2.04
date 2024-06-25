@@ -34,6 +34,9 @@
 
 <b>Total : {{ donnees|length }}</b>
 
+<h2>Graphique</h2>
+<img src="data:image/png;base64,{{ graph }}" alt="Graphique de Température">
+
 <form method="get" action="{% url 'donnee.export' %}">
     <input type="hidden" name="ids" value="{{ donnees_ids|join:"," }}">
     <button type="submit">Exporter CSV</button>

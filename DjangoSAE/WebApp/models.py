@@ -17,16 +17,16 @@ class Capteur(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'capteurs'
+        db_table = "capteurs"
 
 
 class Donnee(models.Model):
     # ID capteur ? ID entrée ?
-    capteur = models.ForeignKey(Capteur, models.CASCADE, to_field='capteur_id')
+    capteur = models.ForeignKey(Capteur, models.CASCADE, to_field="capteur_id")
     date = models.DateField()
     heure = models.TimeField()
     temperature = models.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         managed = False
-        db_table = 'donnees'
+        db_table = "donnees"

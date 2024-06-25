@@ -1,5 +1,0 @@
-Pour activer un environnement virtuel, faire :
-
-```
-source .venv/bin/activate
-```
