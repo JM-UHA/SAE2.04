@@ -36,6 +36,7 @@ def publier_vers_db(donnees: list[dict[typing.Any, typing.Any]]):
     db = typing.cast(mysql.connector.MySQLConnection, db)
     cursor = db.cursor()
     for donnee in donnees:
+        print(donnee)
         cursor.execute(INSERT_CAPTEUR, donnee)
         cursor.execute(INSERT_DONNEES, donnee)
     db.commit()
@@ -76,6 +77,7 @@ def on_message(client: Client, userdata: typing.Any, msg: MQTTMessage):
         return
 
     if db and db.is_connected():
+        temp_save.append(true_info)
         publier_vers_db(temp_save)
         temp_save = []
     else:
