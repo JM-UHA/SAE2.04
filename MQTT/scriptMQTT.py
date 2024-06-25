@@ -13,7 +13,7 @@ temp_save: list[dict[str, typing.Any]] = []
 WHITELIST_CAPTEURS = ["B8A5F3569EFF", "A72E3F6B79BB"]
 
 db_config = {
-    "host": "100.102.34.33",
+    "host": "db.grp11.local",
     "user": "toto",
     "password": "toto",
     "database": "dbcapteurs",
@@ -25,6 +25,7 @@ INSERT_DONNEES = "INSERT INTO Donnees (capteur_id, date, heure, temperature) VAL
 
 try:
     db = mysql.connector.connect(**db_config)
+    print("Connecté à la base de données.")
 except Exception as exception:
     db = None
     print(f"Impossible de se connecter à la base de données : {exception}")
@@ -33,10 +34,12 @@ except Exception as exception:
 def publier_vers_db(donnees: list[dict[typing.Any, typing.Any]]):
     global db
     db = typing.cast(mysql.connector.MySQLConnection, db)
+    cursor = db.cursor()
     for donnee in donnees:
-        cursor = db.cursor()
         cursor.execute(INSERT_CAPTEUR, donnee)
         cursor.execute(INSERT_DONNEES, donnee)
+    db.commit()
+    cursor.close()
 
 def on_connect(client: Client, userdata: typing.Any, flags: ConnectFlags, reason_code: ReasonCode, properties: Properties):
     if reason_code == 0:
