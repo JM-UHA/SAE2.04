@@ -5,7 +5,7 @@ build-backend = "pdm.backend"
 [project]
 name = "SAE204"
 version = "0.0.0"
-description = "SAE20.04"
+description = "SAE2.04"
 authors = []
 dependencies = [
     "django>=5.0.6",

@@ -42,7 +42,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", get_ip_address(), "code.lydia.moe"]
 # Application definition
 
 INSTALLED_APPS = [
-    "WebApp",
+    "DjangoSAE.WebApp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -61,7 +61,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "WebProject.urls"
+ROOT_URLCONF = "DjangoSAE.WebProject.urls"
 
 TEMPLATES = [  # type: ignore
     {
@@ -79,7 +79,7 @@ TEMPLATES = [  # type: ignore
     },
 ]
 
-WSGI_APPLICATION = "WebProject.wsgi.application"
+WSGI_APPLICATION = "DjangoSAE.WebProject.wsgi.application"
 
 
 # Database
