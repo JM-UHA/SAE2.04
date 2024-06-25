@@ -5,6 +5,7 @@
         <title>{% block "title" %}SAE2.04{% endblock %}</title>
         {% load static %}
         <link href="{% static 'main.css' %}" rel="stylesheet">
+        {% block "head" %}{% endblock %}
     </head>
     <body>
         <nav>
